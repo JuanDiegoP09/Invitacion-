@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #ffe6f0;
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .invitation-card {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            margin: 20px;
+        }
+        
+        .flower {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+        }
+        
+        .flower::before {
+            content: "🌸";
+            font-size: 24px;
+        }
+        
+        .flower:nth-child(1) { top: 10px; left: 10px; }
+        .flower:nth-child(2) { top: 10px; right: 10px; }
+        .flower:nth-child(3) { bottom: 10px; left: 10px; }
+        .flower:nth-child(4) { bottom: 10px; right: 10px; }
+        
+        h1 {
+            color: #ff4d88;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .date {
+            font-size: 24px;
+            color: #ff4d88;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        
+        .hearts {
+            color: #ff4d88;
+            font-size: 24px;
+            margin: 15px 0;
+        }
+
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 10px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        #siButton {
+            background-color: #ff4d88;
+            color: white;
+        }
+
+        #noButton {
+            background-color: #gray;
+            color: #666;
+        }
+
+        #mensaje {
+            display: none;
+            color: #ff4d88;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: aparecer 0.5s ease-in;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .confeti {
+            position: fixed;
+            animation: caer 3s linear infinite;
+        }
+
+        @keyframes caer {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="invitation-card">
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        <div class="flower"></div>
+        
+        <div class="hearts">❤️ ❤️ ❤️</div>
+        <h1>Invitación Especial</h1>
+        
+        <p>Holaaaa amorcito te invito</p>
+        <p>a disfrutar un momento especial conmigo</p>
+        
+        <div class="date">14 de Febrero</div>
+        <p>TE AMOOO MUCHOOOOO</p>
+        <div class="hearts">❤️ ❤️ ❤️</div>
+
+        <div class="buttons">
+            <button id="siButton">Sí</button>
+            <button id="noButton">No</button>
+        </div>
+
+        <div id="mensaje"></div>
+    </div>
+
+    <script>
+        document.getElementById('siButton').addEventListener('click', function() {
+            document.getElementById('mensaje').style.display = 'block';
+            document.getElementById('mensaje').textContent = '¡Ya tienes cita el 14 de febrero! 💖';
+            crearConfeti();
+            document.querySelector('.buttons').style.display = 'none';
+        });
+
+        document.getElementById('noButton').addEventListener('click', function() {
+            const boton = document.getElementById('noButton');
+            const randomX = Math.random() * (window.innerWidth - boton.offsetWidth);
+            const randomY = Math.random() * (window.innerHeight - boton.offsetHeight);
+            boton.style.position = 'fixed';
+            boton.style.left = randomX + 'px';
+            boton.style.top = randomY + 'px';
+        });
+
+        function crearConfeti() {
+            for(let i = 0; i < 50; i++) {
+                const confeti = document.createElement('div');
+                confeti.className = 'confeti';
+                confeti.style.left = Math.random() * 100 + 'vw';
+                confeti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confeti.style.width = '10px';
+                confeti.style.height = '10px';
+                confeti.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(confeti);
+                
+                setTimeout(() => confeti.remove(), 3000);
+            }
+        }
+    </script>
+</body>
+</html>
